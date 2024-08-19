@@ -7,6 +7,7 @@ const validate = (schema) => {
     ...schema,
     // 中间件: 检查验证结果
     (req, res, next) => {
+      console.log("req", req);
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return commonRes.error(res, null, errors.array());

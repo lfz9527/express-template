@@ -8,6 +8,12 @@ async function createUserHandler(req, res) {
   return e ? commonRes.error(res, null, e.message) : commonRes(res, user);
 }
 
+async function getUserHandler(req, res) {
+  const [e, user] = await silentHandle(UserCrud.find, req.params);
+  return e ? commonRes.error(res, null, e.message) : commonRes(res, user);
+}
+
 module.exports = {
   createUserHandler,
+  getUserHandler,
 };
