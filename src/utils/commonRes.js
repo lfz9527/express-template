@@ -34,7 +34,7 @@ commonRes.error = function (res, data, message, status) {
   // 数组只去取第一个
   if (Array.isArray(message)) {
     const [first = {}] = message;
-    sendMessage = first.message || "";
+    sendMessage = first.msg || "";
   }
 
   this(res, data, {

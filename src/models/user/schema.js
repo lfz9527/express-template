@@ -1,16 +1,14 @@
-// 接口参数校验 主要使用zod，具体使用可查看文档
-const zod = require("zod");
-const { object, string } = zod;
+// 接口参数校验 主要使用express-validator，具体使用可查看文档
+const { body } = require("express-validator");
 // 创建接口
-const createUserSchema = object({
-  body: object({
-    name: string({ required_error: "缺少用户姓名" }),
-    account: string({ required_error: "缺少账号名称" }),
-    password: string({ required_error: "缺少用户密码" }).min(
-      6,
-      "密码太短 - 至少6个字符"
-    ),
-  }),
-});
+const createUserSchema = [
+  body("name").notEmpty().withMessage("缺少用户姓名"),
+  body("account").notEmpty().withMessage("缺少账号名称"),
+  body("password")
+    .notEmpty()
+    .withMessage("缺少用户密码")
+    .isLength({ min: 6 })
+    .withMessage("密码太短 - 至少6个字符"),
+];
 
 module.exports = createUserSchema;
