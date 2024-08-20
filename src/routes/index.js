@@ -1,5 +1,4 @@
-const commonRes = require("../utils/commonRes");
-const silentHandle = require("../utils/silentHandle");
+const path = require("path");
 const User = require("./user.routes");
 
 // 路由配置

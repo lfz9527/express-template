@@ -1,9 +1,10 @@
 const express = require("express");
 const path = require("path");
-
 const responseHeader = require("./responseHeader");
+const getNotPage = require("./getNotPage");
 function initMiddleware(app) {
   app.use(express.json());
+  app.use(getNotPage);
   // 注册相应头事件
   app.use(responseHeader);
   // 注册静态资源中间件,暴露静态资源对外访问

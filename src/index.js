@@ -8,6 +8,9 @@ const initMiddleware = require("./middleware/index.js");
 
 const app = express();
 
+// 挂载路由
+routes(app);
+
 // 挂载中间件
 initMiddleware(app);
 
@@ -16,5 +19,4 @@ app.listen(port, async () => {
   logger.info(`App is running at http://localhost:${port}`);
   // 数据库链接
   await dbConnect();
-  routes(app);
 });
