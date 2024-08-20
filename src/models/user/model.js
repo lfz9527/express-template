@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 const { Schema } = mongoose;
 
 // 模板校验规则
@@ -38,6 +39,18 @@ const userSchema = new mongoose.Schema(
 
 // 创建联合索引
 userSchema.index({ user_id: 1, user_name: 1 }, { unique: true });
+
+// 在保存用户之前，对密码进行哈希处理
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("user_password")) return next();
+  this.user_password = await bcrypt.hash(this.user_password, 10);
+  next();
+});
+
+// 验证密码是否正确
+userSchema.methods.validatePassword = function (newPassword) {
+  return bcrypt.compare(newPassword, this.user_password);
+};
 
 // 创建模板 执行之后会自动在mongodb中创建相应的模板
 const UserModel = mongoose.model("sys_user", userSchema);
