@@ -12,7 +12,7 @@ router.post(
 );
 router.get(
   "/get",
-  validate(UserSchema.getUserSchema),
+  validate(UserSchema.getUserByNameSchema),
   UserHandler.getUserHandler
 );
 

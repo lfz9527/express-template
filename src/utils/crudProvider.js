@@ -13,6 +13,8 @@ class BaseCrudProviderCls {
 
   async find(query, projection, options) {
     const result = await this.DBModel.find(query, projection, options);
+    console.log("result", result);
+
     return result && result.map((d) => d.toJSON());
   }
 }

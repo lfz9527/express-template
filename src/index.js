@@ -8,11 +8,11 @@ const initMiddleware = require("./middleware/index.js");
 
 const app = express();
 
-// 挂载路由
-routes(app);
-
 // 挂载中间件
 initMiddleware(app);
+
+// 挂载路由
+routes(app);
 
 // 启动
 app.listen(port, async () => {

@@ -2,18 +2,25 @@
 const { body, query } = require("express-validator");
 // 创建用户的参数校验规则
 const createUserSchema = [
-  body("name").notEmpty().withMessage("缺少用户姓名"),
-  body("account").notEmpty().withMessage("缺少账号名称"),
-  body("password")
+  body("user_name").notEmpty().withMessage("请输入用户姓名"),
+  body("user_email")
     .notEmpty()
-    .withMessage("缺少用户密码")
+    .withMessage("请输入邮箱")
+    .isEmail()
+    .withMessage("请输入正确的邮箱地址"),
+  body("user_sex").notEmpty().withMessage("请输入性别"),
+  body("user_password")
+    .notEmpty()
+    .withMessage("请输入密码")
     .isLength({ min: 6 })
     .withMessage("密码太短 - 至少6个字符"),
 ];
 
-const getUserSchema = [query("name").notEmpty().withMessage("缺少用户姓名")];
+const getUserByNameSchema = [
+  query("user_name").notEmpty().withMessage("缺少用户姓名"),
+];
 
 module.exports = {
   createUserSchema,
-  getUserSchema,
+  getUserByNameSchema,
 };
