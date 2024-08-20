@@ -23,5 +23,11 @@ class Code {
     this.type = "error";
     return this;
   }
+  params_error(message) {
+    this.code = -1;
+    this.message = message || "参数错误";
+    this.type = "params_error";
+    return this;
+  }
 }
 module.exports = Code;

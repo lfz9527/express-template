@@ -1,10 +1,13 @@
 const Code = require("../constants/code");
 const logger = require("../utils/logger.js");
+const { getFirstItemAtArray } = require("../utils/index");
 const code = new Code();
 
 // 默认成功响应
 function commonRes(res, data, options) {
   options = Object.assign({ type: code.success().type }, options || {});
+
+  console.log(options);
 
   const { type, status, message } = options;
 
@@ -29,17 +32,26 @@ function commonRes(res, data, options) {
 commonRes.error = function (res, data, message, status) {
   logger.error(code.error(message).message);
 
-  let sendMessage = message;
-
   // 数组只去取第一个
-  if (Array.isArray(message)) {
-    const [first = {}] = message;
-    sendMessage = first.msg || "";
-  }
+  const sendMessage = getFirstItemAtArray(message).msg;
 
   this(res, data, {
     type: "error",
     message: code.error(sendMessage).message,
+    status: status || 409,
+  });
+};
+
+// 成功响应,接口参数校验失败
+commonRes.params_error = function (res, data, message, status) {
+  logger.error(code.params_error(message).message);
+
+  // 数组只去取第一个
+  const sendMessage = getFirstItemAtArray(message).msg;
+
+  this(res, data, {
+    type: "params_error",
+    message: code.params_error(sendMessage).message,
     status: status || 409,
   });
 };

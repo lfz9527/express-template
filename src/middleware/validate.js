@@ -9,7 +9,7 @@ const validate = (schema) => {
     (req, res, next) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return commonRes.error(res, null, errors.array());
+        return commonRes.params_error(res, null, errors.array());
       }
       next();
     },
