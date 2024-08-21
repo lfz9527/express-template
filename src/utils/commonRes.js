@@ -2,6 +2,7 @@ const Code = require("../constants/code");
 const logger = require("../utils/logger.js");
 const { getFirstItemAtArray } = require("../utils/index");
 const code = new Code();
+const { isObject } = require("../utils/is.js");
 
 // 默认成功响应
 function commonRes(res, data, options) {
@@ -32,8 +33,9 @@ function commonRes(res, data, options) {
 commonRes.error = function (res, data, message, status) {
   logger.error(code.error(message).message);
 
-  // 数组只去取第一个
-  const sendMessage = getFirstItemAtArray(message).msg;
+  // 如果是多个错误,只返回第一个
+  let sendMessage = getFirstItemAtArray(message);
+  if (isObject(sendMessage)) sendMessage = sendMessage.msg;
 
   this(res, data, {
     type: "error",
@@ -46,8 +48,9 @@ commonRes.error = function (res, data, message, status) {
 commonRes.params_error = function (res, data, message, status) {
   logger.error(code.params_error(message).message);
 
-  // 数组只去取第一个
-  const sendMessage = getFirstItemAtArray(message).msg;
+  // 如果是多个错误,只返回第一个
+  const sendMessage = getFirstItemAtArray(message);
+  if (isObject(sendMessage)) sendMessage = sendMessage.msg;
 
   this(res, data, {
     type: "params_error",

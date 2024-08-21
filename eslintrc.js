@@ -30,6 +30,6 @@ module.exports = {
     "no-empty-function": "warn",
     "prefer-const": "warn",
     // 禁止出现;
-    semi: ["warn", "never"],
+    semi: "off",
   },
 };

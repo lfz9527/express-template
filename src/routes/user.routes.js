@@ -10,10 +10,11 @@ router.post(
   validate(UserSchema.createUserSchema),
   UserHandler.createUserHandler
 );
-router.get(
-  "/get",
-  validate(UserSchema.getUserByNameSchema),
-  UserHandler.getUserHandler
+
+router.post(
+  "/login",
+  validate(UserSchema.loginSchema),
+  UserHandler.loginHandler
 );
 
 module.exports = router;

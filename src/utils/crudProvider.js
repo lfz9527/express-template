@@ -13,9 +13,11 @@ class BaseCrudProviderCls {
 
   async find(query, projection, options) {
     const result = await this.DBModel.find(query, projection, options);
-    console.log("result", result);
-
     return result && result.map((d) => d.toJSON());
+  }
+  async findOne(query, projection, options) {
+    const result = await this.DBModel.findOne(query, projection, options);
+    return result && result.toJSON();
   }
 }
 
@@ -26,6 +28,7 @@ const BaseCrudProvider = function (DBModel) {
     create: CRUD.create.bind(CRUD),
     update: CRUD.update.bind(CRUD),
     find: CRUD.find.bind(CRUD),
+    findOne: CRUD.findOne.bind(CRUD),
   };
 };
 

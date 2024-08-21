@@ -47,11 +47,6 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-// 验证密码是否正确
-userSchema.methods.validatePassword = function (newPassword) {
-  return bcrypt.compare(newPassword, this.user_password);
-};
-
 // 创建模板 执行之后会自动在mongodb中创建相应的模板
 const UserModel = mongoose.model("sys_user", userSchema);
 

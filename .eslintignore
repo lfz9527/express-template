@@ -1,3 +1,4 @@
 # 忽略以下目录的eslint校验
 node_modules
 build
+coverage
