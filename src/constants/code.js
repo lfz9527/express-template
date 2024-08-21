@@ -5,7 +5,7 @@ class Code {
     this.type = "";
   }
   success(message) {
-    this.code = 1001;
+    this.code = 1;
     this.message = message || "请求成功";
     this.type = "success";
 

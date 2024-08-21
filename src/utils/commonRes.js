@@ -25,7 +25,7 @@ function commonRes(res, data, options) {
     data,
   };
 
-  message && (sendRes.message = message);
+  sendRes.message = message ?? "";
   return res.status(resStatus).send(sendRes);
 }
 

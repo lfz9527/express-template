@@ -17,11 +17,10 @@ async function loginHandler(req, res) {
   const [e, user] = await silentHandle(UserCrud.findOne, { user_name });
   if (e) return commonRes.error(res, null, e.message);
 
-  const compare = await bcrypt.compare(user_password, user.user_password);
-
-  if (!compare) {
+  if (!user || !(await bcrypt.compare(user_password, user.user_password))) {
     return commonRes.params_error(res, null, "用户名或密码错误");
   }
+
   const token = jwt.sign({ userId: user.user_id }, "_jwt_secret");
   return commonRes(res, { token });
 }
